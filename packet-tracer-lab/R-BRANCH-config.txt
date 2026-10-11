@@ -1,0 +1,97 @@
+!
+version 15.1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname R-BRANCH
+!
+!
+!
+!
+ip dhcp excluded-address 192.168.10.1 192.168.10.9
+ip dhcp excluded-address 192.168.20.1 192.168.20.9
+!
+ip dhcp pool STAFF
+ network 192.168.10.0 255.255.255.0
+ default-router 192.168.10.1
+ dns-server 192.168.100.10
+ip dhcp pool GUEST
+ network 192.168.20.0 255.255.255.0
+ default-router 192.168.20.1
+ dns-server 192.168.100.10
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+!
+!
+license udi pid CISCO1941/K9 sn FTX1524PW8X-
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain-lookup
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ no ip address
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/0.10
+ encapsulation dot1Q 10
+ ip address 192.168.10.1 255.255.255.0
+!
+interface GigabitEthernet0/0.20
+ encapsulation dot1Q 20
+ ip address 192.168.20.1 255.255.255.0
+!
+interface GigabitEthernet0/1
+ ip address 10.0.0.1 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+ip classless
+ip route 192.168.100.0 255.255.255.0 10.0.0.2 
+!
+ip flow-export version 9
+!
+!
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+end
+
